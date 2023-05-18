@@ -1,76 +1,72 @@
 #include <iostream>
-#include <vector>
+using namespace std;
 
-// Bubble Sort (Descending)
-void bubbleSort(std::vector<int>& arr) {
-    int n = arr.size();
-    bool swapped;
+void inputA(int A[],int n);
+void Swap(int &a, int &b);
+void printArr(int A[],int n);
+void insertS(int A[], int n);
+void selectS(int A[],int n);
 
-    for (int i = 0; i < n - 1; i++) {
-        swapped = false;
+int main(){
+    int n;
+    cout<<"Masukkan Batas Array"<<endl;
+    cout<<"=>";cin>>n;
+    int arr[n];
+    inputA(arr,n);
 
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] < arr[j + 1]) {
-                std::swap(arr[j], arr[j + 1]);
-                swapped = true;
+    selectS(arr,n);
+    cout << "Array yang telah diurutkan menggunakan Selection Sort: "<<endl;
+    printArr(arr,n);
+
+    cout<<endl;
+
+    insertS(arr,n);
+    cout << "Array yang telah diurutkan menggunakan Insertion Sort: "<<endl;
+    printArr(arr,n);
+
+}
+
+void Swap(int &a, int &b){
+    int temp=a;
+    a=b;
+    b=temp;
+}
+
+//Prosedur Selection Sort
+void selectS(int A[],int n){
+    for(int i=0;i<n-1;i++){
+        int Min=i;
+        for(int j=i+1;j<n;j++){
+            if (A[j]>A[Min]){
+                Min=j;
             }
         }
+        Swap(A[i], A[Min]);
+    }
+}
 
-        // Jika tidak ada pertukaran elemen pada iterasi ini, array sudah terurut dan loop dapat dihentikan.
-        if (!swapped) {
-            break;
+//Prosedur Insertion Sort
+void insertS(int A[], int n){
+    for (int i=1;i<n;i++){
+        int j=i;
+        while (j>=0 && A[j]>A[j-1]){
+            Swap(A[j], A[j-1]);
+            j--;
         }
+
     }
 }
 
-// Quick Sort (Descending)
-int partition(std::vector<int>& arr, int low, int high) {
-    int pivot = arr[high];
-    int i = low - 1;
 
-    for (int j = low; j <= high - 1; j++) {
-        if (arr[j] > pivot) {
-            i++;
-            std::swap(arr[i], arr[j]);
-        }
-    }
-
-    std::swap(arr[i + 1], arr[high]);
-    return i + 1;
-}
-
-void quickSort(std::vector<int>& arr, int low, int high) {
-    if (low < high) {
-        int pi = partition(arr, low, high);
-
-        quickSort(arr, low, pi - 1);
-        quickSort(arr, pi + 1, high);
+void inputA(int A[],int n){
+    for(int i=0;i<n;i++){
+        cout<<"Masukkan Array ke"<<i<<" : ";
+        cin>>A[i];
     }
 }
 
-// Fungsi bantu untuk mencetak array
-void printArray(const std::vector<int>& arr) {
-    for (int i = 0; i < arr.size(); i++) {
-        std::cout << arr[i] << " ";
+void printArr(int A[],int n){
+    for (int i=0;i<n;i++){
+        cout<<A[i]<<" ";
     }
-    std::cout << std::endl;
-}
-
-int main() {
-    std::vector<int> A = {5, 4, 3, 2, 2, 1, 1};
-
-    std::cout << "Array sebelum pengurutan:" << std::endl;
-    printArray(A);
-
-    // Pengurutan dengan Bubble Sort
-    bubbleSort(A);
-    std::cout << "Array setelah pengurutan dengan Bubble Sort:" << std::endl;
-    printArray(A);
-
-    // Pengurutan dengan Quick Sort
-    quickSort(A, 0, A.size() - 1);
-    std::cout << "Array setelah pengurutan dengan Quick Sort:" << std::endl;
-    printArray(A);
-
-    return 0;
 }
