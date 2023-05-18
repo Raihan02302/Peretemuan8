@@ -1,33 +1,81 @@
-#include <iostream>
-#include <vector>
+#include<iostream>
+using namespace std;
 
-bool isOdd(int number) {
-    return number % 2 != 0;
-}
 
-void printSmallestEven(const std::vector<int>& arr) {
-    int smallestEven = INT_MAX;
-    int smallestEvenIndex = -1;
+void printArr(int A[],int n);
+void insertArr(int A[],int n);
+void nilaiGT(int A[],int n);
+int isOdd(int x);
+int isEven(int x);
 
-    for (int i = 0; i < arr.size(); i++) {
-        if (arr[i] % 2 == 0 && arr[i] < smallestEven) {
-            smallestEven = arr[i];
-            smallestEvenIndex = i;
-        }
+int main(){
+    int n;
+    cout<<"Masukkan Batas Array"<<endl;
+    cin>>n;
+    int arr[n];
+    insertArr(arr,n);
+    printArr(arr,n);
+    nilaiGT(arr,n);
+
+    cout<<endl;
+    cout<<"Menguji Bilangan"<<endl;
+    cout<<"Masukkan Bilangan yang akan diuji :"<<endl;
+    cin>>n;
+
+    isOdd(n);
+    if (isOdd(n)){
+        cout<<"Bilangan ini adalah bilangan ganjil"<<endl;
+    }
+    else{
+        cout<<"Bilangan ini bukan bilangan ganjil"<<endl;
     }
 
-    if (smallestEvenIndex != -1) {
-        std::cout << "Nilai genap terkecil: " << smallestEven << std::endl;
-        std::cout << "Index: " << smallestEvenIndex << std::endl;
-    } else {
-        std::cout << "Tidak ada nilai genap dalam deret bilangan." << std::endl;
-    }
+return 0;
 }
 
-int main() {
-    std::vector<int> A = {6, 7, 4, 3, 2};
+void nilaiGT(int A[],int n){
+    int genapk = -1;
+    int igenapk = -1;
 
-    printSmallestEven(A);
+    for (int i=0;i<n;i++){
+            if(A[i] % 2 ==0 &&(genapk == -1 || A[i]<genapk)){
+                genapk = A[i];
+                igenapk = i;
+            }
+    }
+    if(igenapk !=-1){
+        cout << "Nilai genap terkecil dalam array adalah : " << genapk<<endl;
+        cout << "Ada di Index : "<<igenapk<<endl;
+    }
+    else{
+        cout << "tidak ditemukan Nilai genap";
+    }
 
-    return 0;
+}
+
+
+int isOdd(int x){
+
+return x % 2 !=0;
+
+}
+
+int isEven(int x){
+
+return x % 2 ==0;
+
+}
+
+void printArr(int A[],int n){
+    for(int i=0;i<n;i++){
+        cout<<A[i]<<" ";
+    }
+    cout<<endl;
+}
+
+void insertArr(int A[],int n){
+    for (int i=0;i<n;i++){
+        cout<<"masukkan elemen array ke-"<<i+1<<"  ";
+        cin>>A[i];
+    }
 }
